@@ -1978,6 +1978,16 @@ Undocumented.prototype.wordAdsApprove = function( siteId ) {
 };
 
 /**
+ * Get WordAds Status of a site.
+ *
+ * @param {int}       siteId            The site ID
+ * @returns {XMLHttpRequest}          The XHR instance
+ */
+Undocumented.prototype.getWordadsStatus = function( siteId, fn ) {
+	debug( '/sites/:site:/wordads/status' );
+	return this.wpcom.req.get( '/sites/' + siteId + '/wordads/status', fn );
+};
+/**
  * Requests the status of a guided transfer
  *
  * @param {int} siteId  The site ID
