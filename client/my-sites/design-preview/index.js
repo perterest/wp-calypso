@@ -74,7 +74,7 @@ const DesignPreview = React.createClass( {
 	},
 
 	componentWillReceiveProps( nextProps ) {
-		if ( ! config.isEnabled( 'preview-endpoint' ) ) {
+		if ( ! this.props.showSidebar ) {
 			if ( this.props.selectedSiteId && this.props.selectedSiteId !== nextProps.selectedSiteId ) {
 				this.previewCounter = 0;
 			}
@@ -92,7 +92,7 @@ const DesignPreview = React.createClass( {
 	},
 
 	componentDidUpdate( prevProps ) {
-		if ( ! config.isEnabled( 'preview-endpoint' ) ) {
+		if ( ! this.props.showSidebar ) {
 			return;
 		}
 
@@ -131,7 +131,7 @@ const DesignPreview = React.createClass( {
 	},
 
 	loadPreview() {
-		if ( ! config.isEnabled( 'preview-endpoint' ) || ! this.props.selectedSite ) {
+		if ( ! this.props.showSidebar || ! this.props.selectedSite ) {
 			return;
 		}
 		debug( 'loading preview with customizations', this.props.customizations );
@@ -191,8 +191,6 @@ const DesignPreview = React.createClass( {
 	},
 
 	render() {
-		const useEndpoint = config.isEnabled( 'preview-endpoint' );
-
 		if ( ! this.props.selectedSite || ! this.props.selectedSite.is_previewable ) {
 			debug( 'a preview is not available for this site' );
 			return null;
@@ -201,15 +199,15 @@ const DesignPreview = React.createClass( {
 		return (
 			<WebPreview
 				className={ this.props.className }
-				previewUrl={ useEndpoint ? null : this.getPreviewUrl() }
+				previewUrl={ this.props.showSidebar ? null : this.getPreviewUrl() }
 				externalUrl={ this.getBasePreviewUrl() }
-				hasSidebar={ this.props.showSidebar }
 				showExternal={ true }
 				showClose={ this.props.showClose }
 				showPreview={ this.props.showPreview }
-				previewMarkup={ useEndpoint ? this.props.previewMarkup : null }
+				hasSidebar={ this.props.showSidebar }
+				previewMarkup={ this.props.showSidebar && this.props.previewMarkup ? this.props.previewMarkup : null }
 				onClose={ this.onClosePreview }
-				onLoad={ useEndpoint ? this.onLoad : noop }
+				onLoad={ this.props.showSidebar && this.props.previewMarkup ? this.onLoad : noop }
 			>
 				{ this.props.children }
 			</WebPreview>
