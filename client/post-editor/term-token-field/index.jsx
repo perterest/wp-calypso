@@ -43,6 +43,7 @@ class TermTokenField extends React.Component {
 		recordEvent( 'Changed Terms', termEventLabel );
 
 		const { siteId, postId, taxonomyName } = this.props;
+
 		this.props.editPost( siteId, postId, {
 			terms: {
 				[ taxonomyName ]: selectedTerms
