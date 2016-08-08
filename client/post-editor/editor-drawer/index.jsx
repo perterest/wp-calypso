@@ -234,7 +234,7 @@ const EditorDrawer = React.createClass( {
 			return;
 		}
 
-		return(
+		return (
 			<AccordionSection>
 				<Discussion
 					site={ this.props.site }
@@ -298,7 +298,7 @@ const EditorDrawer = React.createClass( {
 	},
 
 	render: function() {
-		const { site, type } = this.props;
+		const { site } = this.props;
 
 		return (
 			<div className="editor-drawer">
