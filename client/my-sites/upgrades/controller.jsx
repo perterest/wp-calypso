@@ -14,7 +14,7 @@ var analytics = require( 'lib/analytics' ),
 	route = require( 'lib/route' ),
 	Main = require( 'components/main' ),
 	upgradesActions = require( 'lib/upgrades/actions' ),
-	titleActions = require( 'lib/screen-title/actions' ),
+	setTitle = require( 'state/document-head/actions' ).setDocumentHeadTitle,
 	setSection = require( 'state/ui/actions' ).setSection,
 	productsList = require( 'lib/products-list' )(),
 	abtest = require( 'lib/abtest' ).abtest,
@@ -43,9 +43,8 @@ module.exports = {
 			DomainSearch = require( './domain-search' ),
 			basePath = route.sectionify( context.path );
 
-		titleActions.setTitle( i18n.translate( 'Domain Search' ), {
-			siteID: context.params.domain
-		} );
+		// FIXME: Auto-converted from the Flux setTitle action. Please use <DocumentHead> instead.
+		context.store.dispatch( setTitle( i18n.translate( 'Domain Search' ) ) );
 
 		analytics.pageView.record( basePath, 'Domain Search > Domain Registration' );
 
@@ -74,9 +73,8 @@ module.exports = {
 			SiteRedirect = require( './domain-search/site-redirect' ),
 			basePath = route.sectionify( context.path );
 
-		titleActions.setTitle( i18n.translate( 'Redirect a Site' ), {
-			siteID: context.params.domain
-		} );
+		// FIXME: Auto-converted from the Flux setTitle action. Please use <DocumentHead> instead.
+		context.store.dispatch( setTitle( i18n.translate( 'Redirect a Site' ) ) );
 
 		analytics.pageView.record( basePath, 'Domain Search > Site Redirect' );
 
@@ -98,9 +96,8 @@ module.exports = {
 			MapDomain = require( 'my-sites/upgrades/map-domain' ),
 			basePath = route.sectionify( context.path );
 
-		titleActions.setTitle( i18n.translate( 'Map a Domain' ), {
-			siteID: context.params.domain
-		} );
+		// FIXME: Auto-converted from the Flux setTitle action. Please use <DocumentHead> instead.
+		context.store.dispatch( setTitle( i18n.translate( 'Map a Domain' ) ) );
 
 		analytics.pageView.record( basePath, 'Domain Search > Domain Mapping' );
 		renderWithReduxStore(
@@ -124,14 +121,12 @@ module.exports = {
 		var CartData = require( 'components/data/cart' ),
 			GoogleApps = require( 'components/upgrades/google-apps' );
 
-		titleActions.setTitle(
+		// FIXME: Auto-converted from the Flux setTitle action. Please use <DocumentHead> instead.
+		context.store.dispatch( setTitle(
 			i18n.translate( 'Register %(domain)s', {
 				args: { domain: context.params.registerDomain }
-			} ),
-			{
-				siteID: context.params.domain
-			}
-		);
+			} )
+		) );
 
 		const handleAddGoogleApps = function( googleAppsCartItem ) {
 			upgradesActions.addItem( googleAppsCartItem );
@@ -180,9 +175,8 @@ module.exports = {
 
 		analytics.pageView.record( basePath, 'Checkout' );
 
-		titleActions.setTitle( i18n.translate( 'Checkout' ), {
-			siteID: context.params.domain
-		} );
+		// FIXME: Auto-converted from the Flux setTitle action. Please use <DocumentHead> instead.
+		context.store.dispatch( setTitle( i18n.translate( 'Checkout' ) ) );
 
 		renderWithReduxStore(
 			(
@@ -218,7 +212,7 @@ module.exports = {
 
 		context.store.dispatch( setSection( 'checkout-thank-you', { hasSidebar: false } ) );
 
-		titleActions.setTitle( i18n.translate( 'Thank You' ) );
+		context.store.dispatch( setTitle( i18n.translate( 'Thank You' ) ) ); // FIXME: Auto-converted from the Flux setTitle action. Please use <DocumentHead> instead.
 
 		renderWithReduxStore(
 			(
