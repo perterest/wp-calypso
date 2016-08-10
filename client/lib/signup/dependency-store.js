@@ -10,9 +10,7 @@ import {
 	SIGNUP_DEPENDENCY_STORE_RESET,
 	SIGNUP_DEPENDENCY_STORE_UPDATE,
 } from 'state/action-types';
-
 import { getSignupDependencyStore } from 'state/signup/dependency-store/selectors';
-
 import Dispatcher from 'dispatcher';
 import steps from 'signup/config/steps';
 
