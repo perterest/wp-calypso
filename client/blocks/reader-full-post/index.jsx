@@ -123,7 +123,7 @@ export class FullPostFluxContainer extends React.Component {
 }
 
 export default connect(
-	state => {
+	state => { // eslint-disable-line no-unused-vars
 		return { };
 	},
 	dispatch => {
