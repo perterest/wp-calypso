@@ -29,11 +29,9 @@ const MOCK_USER = {
 };
 
 const MOCK_USER_UTILS = {
-	/* eslint-disable no-unused-vars */
-	needsVerificationForSite: function( site ) {
+	needsVerificationForSite: function( site ) { // eslint-disable-line no-unused-vars
 		return ! MOCK_USER.email_verified;
 	}
-	/* eslint-enable no-unused-vars */
 };
 
 describe( 'EditorGroundControl', function() {
