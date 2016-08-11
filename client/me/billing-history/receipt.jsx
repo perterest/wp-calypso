@@ -1,8 +1,7 @@
 /**
  * External dependencies
  */
-var React = require( 'react' ),
-	titleCase = require( 'to-title-case' );
+var React = require( 'react' );
 
 /**
  * Internal dependencies
