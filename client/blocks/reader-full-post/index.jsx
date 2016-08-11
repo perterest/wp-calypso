@@ -25,7 +25,7 @@ import AuthorCompactProfile from 'blocks/author-compact-profile';
 
 export class FullPostView extends React.Component {
 	render() {
-		const { post, site, feed } = this.props; // eslint-disable-line no-unused-vars
+		const { post, site } = this.props;
 		/*eslint-disable react/no-danger*/
 		return (
 			<Main className="reader-full-post">
