@@ -7,18 +7,34 @@ import React, { Component, PropTypes } from 'react';
  * Internal dependencies
  */
 import DesignPreview from 'my-sites/design-preview';
+import DesignSidebar from 'blocks/design-sidebar';
 
 class SitePreview extends Component {
 	constructor( props ) {
 		super( props );
 	}
 
-	getSidebarComponent() {
+	getSidebarComponent( { currentPreviewType, showPreview } ) {
+		switch ( currentPreviewType ) {
+			case 'paladin':
+				return (
+					<DesignSidebar
+						isVisible={ showPreview }
+					/>
+				);
+		}
 		return null;
 	}
 
 	getPreviewComponent( { currentPreviewType, showPreview } ) {
 		switch ( currentPreviewType ) {
+			case 'paladin':
+				return (
+					<DesignPreview
+						showSidebar={ true }
+						showPreview={ showPreview }
+					/>
+				);
 			case 'design-preview':
 				return (
 					<DesignPreview
@@ -47,7 +63,7 @@ SitePreview.propTypes = {
 };
 
 SitePreview.defaultProps = {
-	currentPreviewType: 'design-preview',
+	currentPreviewType: 'paladin',
 	showPreview: false,
 };
 

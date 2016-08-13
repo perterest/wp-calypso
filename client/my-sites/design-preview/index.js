@@ -31,6 +31,8 @@ const DesignPreview = React.createClass( {
 		className: React.PropTypes.string,
 		// True to show the preview; same as WebPreview.
 		showPreview: React.PropTypes.bool,
+		// True to make space for a sidebar; same as WebPreview.
+		showSidebar: React.PropTypes.bool,
 		// Show close button; same as WebPreview.
 		showClose: React.PropTypes.bool,
 		// Elements to render on the right side of the toolbar; same as WebPreview.
@@ -61,6 +63,7 @@ const DesignPreview = React.createClass( {
 	getDefaultProps() {
 		return {
 			showPreview: false,
+			showSidebar: false,
 			showClose: true,
 			customizations: {},
 			isUnsaved: false,
@@ -199,6 +202,7 @@ const DesignPreview = React.createClass( {
 				className={ this.props.className }
 				previewUrl={ useEndpoint ? null : this.getPreviewUrl() }
 				externalUrl={ this.getBasePreviewUrl() }
+				hasSidebar={ this.props.showSidebar }
 				showExternal={ true }
 				showClose={ this.props.showClose }
 				showPreview={ this.props.showPreview }
