@@ -394,7 +394,7 @@ Popover.propTypes = {
 
 Popover.defaultProps = {
 	autoPosition: true,
-	className: 'popover__container',
+	className: 'popover',
 	closeOnEsc: true,
 	isVisible: false,
 	position: 'top',
