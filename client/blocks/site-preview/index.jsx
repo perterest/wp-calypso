@@ -7,50 +7,44 @@ import { connect } from 'react-redux';
 /**
  * Internal dependencies
  */
-import DesignPreview from 'my-sites/design-preview';
 import DesignSidebar from 'blocks/design-sidebar';
+import DesignPreview from 'my-sites/design-preview';
+import UrlPreview from 'blocks/url-preview';
 import { getCurrentLayoutFocus } from 'state/ui/layout-focus/selectors';
 import { getCurrentPreviewType } from 'state/ui/preview/selectors';
 
 class SitePreview extends Component {
 	constructor( props ) {
 		super( props );
+		this.getSidebarComponent = this.getPreviewComponent.bind( this );
+		this.getPreviewComponent = this.getPreviewComponent.bind( this );
 	}
 
-	getSidebarComponent( { currentPreviewType, showPreview } ) {
-		switch ( currentPreviewType ) {
-			case 'paladin':
+	getSidebarComponent() {
+		switch ( this.props.currentPreviewType ) {
+			case 'design-preview':
 				return (
 					<DesignSidebar
-						isVisible={ showPreview }
+						isVisible={ this.props.showPreview }
 					/>
 				);
 		}
 		return null;
 	}
 
-	getPreviewComponent( { currentPreviewType, showPreview } ) {
-		switch ( currentPreviewType ) {
-			case 'paladin':
-				return (
-					<DesignPreview
-						showSidebar={ true }
-						showPreview={ showPreview }
-					/>
-				);
+	getPreviewComponent() {
+		switch ( this.props.currentPreviewType ) {
+			case 'design-preview':
+				return <DesignPreview showPreview={ this.props.showPreview } />;
 			case 'site-preview':
-				return (
-					<DesignPreview
-						showPreview={ showPreview }
-					/>
-				);
+				return <UrlPreview showPreview={ this.props.showPreview } />;
 		}
 		return null;
 	}
 
 	render() {
-		const Sidebar = this.getSidebarComponent( this.props );
-		const Preview = this.getPreviewComponent( this.props );
+		const Sidebar = this.getSidebarComponent();
+		const Preview = this.getPreviewComponent();
 		return (
 			<div className="site-preview">
 				{ Sidebar }
