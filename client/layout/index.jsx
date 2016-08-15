@@ -171,9 +171,7 @@ Layout = React.createClass( {
 	renderPreview() {
 		if ( config.isEnabled( 'preview-layout' ) && this.props.section.group === 'sites' ) {
 			return (
-				<SitePreview
-					showPreview={ this.props.currentLayoutFocus === 'preview' }
-				/>
+				<SitePreview />
 			);
 		}
 	},
