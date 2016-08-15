@@ -76,11 +76,13 @@ export default React.createClass( {
 		}
 
 		const promo_link = 'https://apps.wordpress.com/desktop/?ref=promo_' + this.props.location + '_' + this.state.promo_item.promo_code;
-		const element = (
+		return (
 			<div className="app-promo">
 				<span tabIndex="0" className="app-promo__dismiss" onClick={ this.dismiss } >
 					<Gridicon icon="cross" size={ 24 } />
-					<span className="screen-reader-text">{ this.translate( 'Dismiss' ) }</span>
+					<span className="app-promo__screen-reader-text screen-reader-text">
+						{ this.translate( 'Dismiss' ) }
+					</span>
 				</span>
 				<a
 					onClick={ this.recordClickEvent }
@@ -99,7 +101,5 @@ export default React.createClass( {
 				</a>
 			</div>
 		);
-
-		return element;
 	}
 } );
