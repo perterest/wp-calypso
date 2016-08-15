@@ -8,8 +8,9 @@ import { connect } from 'react-redux';
  * Internal dependencies
  */
 import DesignSidebar from 'blocks/design-sidebar';
-import DesignPreview from 'my-sites/design-preview';
-import UrlPreview from 'blocks/url-preview';
+import WebPreview from 'components/web-preview';
+import designPreview from 'my-sites/design-preview';
+import urlPreview from 'blocks/url-preview';
 import { getCurrentLayoutFocus } from 'state/ui/layout-focus/selectors';
 import { getCurrentPreviewType } from 'state/ui/preview/selectors';
 
@@ -35,8 +36,10 @@ class SitePreview extends Component {
 	getPreviewComponent() {
 		switch ( this.props.currentPreviewType ) {
 			case 'design-preview':
+				const DesignPreview = designPreview( WebPreview );
 				return <DesignPreview showPreview={ this.props.showPreview } />;
 			case 'site-preview':
+				const UrlPreview = urlPreview( WebPreview );
 				return <UrlPreview showPreview={ this.props.showPreview } />;
 		}
 		return null;
