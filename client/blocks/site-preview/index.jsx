@@ -35,7 +35,7 @@ class SitePreview extends Component {
 						showPreview={ showPreview }
 					/>
 				);
-			case 'design-preview':
+			case 'site-preview':
 				return (
 					<DesignPreview
 						showPreview={ showPreview }
@@ -63,7 +63,7 @@ SitePreview.propTypes = {
 };
 
 SitePreview.defaultProps = {
-	currentPreviewType: 'paladin',
+	currentPreviewType: 'site-preview',
 	showPreview: false,
 };
 
