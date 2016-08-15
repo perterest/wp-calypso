@@ -17,7 +17,7 @@ import { getSelectedSite, getSelectedSiteId } from 'state/ui/selectors';
 import accept from 'lib/accept';
 import designTool from 'my-sites/design-menu/design-tool-data';
 import DesignToolList from 'my-sites/design-tool-list';
-import SiteTitleControl from 'my-sites/site-title';
+import SiteTitleControl from 'components/site-title';
 import DesignMenuPanel from 'my-sites/design-menu-panel';
 import DesignMenuHeader from './design-menu-header';
 
