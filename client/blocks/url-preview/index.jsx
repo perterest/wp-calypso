@@ -21,16 +21,11 @@ export default function urlPreview( WebPreview ) {
 	class UrlPreview extends React.Component {
 		constructor( props ) {
 			super( props );
+			this.state = { previewCount: 0 };
 			this.previewCounter = 0;
 			this.onClosePreview = this.onClosePreview.bind( this );
 			this.getPreviewUrl = this.getPreviewUrl.bind( this );
 			this.getBasePreviewUrl = this.getBasePreviewUrl.bind( this );
-		}
-
-		getInitialState() {
-			return {
-				previewCount: 0
-			};
 		}
 
 		componentWillReceiveProps( nextProps ) {
