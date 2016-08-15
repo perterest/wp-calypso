@@ -11,7 +11,6 @@ import page from 'page';
 /**
  * Internal dependencies
  */
-import config from 'config';
 import WebPreview from 'components/web-preview';
 import { clearPreviewUrl, hidePreviewSidebar } from 'state/ui/actions';
 import { fetchPreviewMarkup, undoCustomization, clearCustomizations } from 'state/preview/actions';
@@ -22,7 +21,7 @@ import { getSelectedSite, getSelectedSiteId, getPreviewUrl, isPreviewSidebarShow
 import { getSiteOption } from 'state/sites/selectors';
 import { getPreviewMarkup, getPreviewCustomizations, isPreviewUnsaved } from 'state/preview/selectors';
 import addQueryArgs from 'lib/route/add-query-args';
-import DesignMenu from 'my-sites/design-menu';
+import DesignMenu from 'blocks/design-menu';
 import { getSiteFragment } from 'lib/route/path';
 
 const debug = debugFactory( 'calypso:design-preview' );

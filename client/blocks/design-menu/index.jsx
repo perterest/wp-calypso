@@ -15,10 +15,10 @@ import { clearCustomizations, fetchPreviewMarkup, saveCustomizations } from 'sta
 import { isPreviewUnsaved, getPreviewCustomizations } from 'state/preview/selectors';
 import { getSelectedSite, getSelectedSiteId } from 'state/ui/selectors';
 import accept from 'lib/accept';
-import designTool from 'my-sites/design-menu/design-tool-data';
-import DesignToolList from 'my-sites/design-tool-list';
+import designTool from './design-tool-data';
+import DesignToolList from './design-tool-list';
 import SiteTitleControl from 'components/site-title';
-import DesignMenuPanel from 'my-sites/design-menu-panel';
+import DesignMenuPanel from './design-menu-panel';
 import DesignMenuHeader from './design-menu-header';
 
 const WrappedSiteTitleControl = designTool( SiteTitleControl );
