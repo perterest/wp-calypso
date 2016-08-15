@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 /**
  * Internal dependencies
  */
-import DesignSidebar from 'blocks/design-sidebar';
 import WebPreview from 'components/web-preview';
 import designPreview from 'my-sites/design-preview';
 import urlPreview from 'blocks/url-preview';
@@ -17,20 +16,7 @@ import { getCurrentPreviewType } from 'state/ui/preview/selectors';
 class SitePreview extends Component {
 	constructor( props ) {
 		super( props );
-		this.getSidebarComponent = this.getPreviewComponent.bind( this );
 		this.getPreviewComponent = this.getPreviewComponent.bind( this );
-	}
-
-	getSidebarComponent() {
-		switch ( this.props.currentPreviewType ) {
-			case 'design-preview':
-				return (
-					<DesignSidebar
-						isVisible={ this.props.showPreview }
-					/>
-				);
-		}
-		return null;
 	}
 
 	getPreviewComponent() {
@@ -46,14 +32,7 @@ class SitePreview extends Component {
 	}
 
 	render() {
-		const Sidebar = this.getSidebarComponent();
-		const Preview = this.getPreviewComponent();
-		return (
-			<div className="site-preview">
-				{ Sidebar }
-				{ Preview }
-			</div>
-		);
+		return this.getPreviewComponent();
 	}
 }
 

@@ -16,6 +16,7 @@ import { getPreviewUrl } from 'state/ui/preview/selectors';
 import { getSiteOption } from 'state/sites/selectors';
 import { getPreviewMarkup, getPreviewCustomizations, isPreviewUnsaved } from 'state/preview/selectors';
 import { setLayoutFocus } from 'state/ui/layout-focus/actions';
+import DesignSidebar from 'blocks/design-sidebar';
 
 const debug = debugFactory( 'calypso:design-preview' );
 
@@ -124,16 +125,21 @@ export default function designPreview( WebPreview ) {
 			}
 
 			return (
-				<WebPreview
-					className={ this.props.className }
-					showPreview={ this.props.showPreview }
-					showExternal={ false }
-					showClose={ false }
-					hasSidebar={ true }
-					previewMarkup={ this.props.previewMarkup }
-					onClose={ this.onClosePreview }
-					onLoad={ this.onLoad }
+				<div>
+					<DesignSidebar
+						isVisible={ this.props.showPreview }
 					/>
+					<WebPreview
+						className={ this.props.className }
+						showPreview={ this.props.showPreview }
+						showExternal={ false }
+						showClose={ false }
+						hasSidebar={ true }
+						previewMarkup={ this.props.previewMarkup }
+						onClose={ this.onClosePreview }
+						onLoad={ this.onLoad }
+						/>
+				</div>
 			);
 		}
 	}
