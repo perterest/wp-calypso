@@ -17,7 +17,6 @@ var wpcom = require( 'lib/wp' ),
 	Searchable = require( 'lib/mixins/searchable' ),
 	Emitter = require( 'lib/mixins/emitter' ),
 	isPlan = require( 'lib/products-values' ).isPlan,
-	user = require( 'lib/user' )(),
 	userUtils = require( 'lib/user/utils' );
 
 /**
