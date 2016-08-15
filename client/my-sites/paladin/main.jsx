@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 /**
  * Internal Dependencies
  */
-import layoutFocus from 'lib/layout-focus';
 import { showPreviewSidebar, hidePreviewSidebar } from 'state/ui/actions';
+import { setLayoutFocus } from 'state/ui/layout-focus/actions';
 
 const NativeCustomizer = React.createClass( {
 	propTypes: {
@@ -18,12 +18,12 @@ const NativeCustomizer = React.createClass( {
 
 	componentWillMount() {
 		this.props.showPreviewSidebar();
-		layoutFocus.set( 'preview' );
+		this.props.setLayoutFocus( 'preview' );
 	},
 
 	componentWillUnmount() {
 		this.props.hidePreviewSidebar();
-		layoutFocus.set( 'content' );
+		this.props.setLayoutFocus( 'content' );
 	},
 
 	render() {
@@ -34,4 +34,4 @@ const NativeCustomizer = React.createClass( {
 	}
 } );
 
-export default connect( () => ( {} ), { showPreviewSidebar, hidePreviewSidebar } )( NativeCustomizer );
+export default connect( null, { showPreviewSidebar, hidePreviewSidebar, setLayoutFocus } )( NativeCustomizer );

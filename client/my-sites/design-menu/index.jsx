@@ -18,16 +18,10 @@ import accept from 'lib/accept';
 import designTool from 'my-sites/design-menu/design-tool-data';
 import DesignToolList from 'my-sites/design-tool-list';
 import SiteTitleControl from 'my-sites/site-title';
-import HeaderImageControl from 'my-sites/header-image';
-import HomePageSettings from 'my-sites/home-page-settings';
-import SiteLogoControl from 'my-sites/site-logo';
 import DesignMenuPanel from 'my-sites/design-menu-panel';
 import DesignMenuHeader from './design-menu-header';
 
 const WrappedSiteTitleControl = designTool( SiteTitleControl );
-const WrappedSiteLogoControl = designTool( SiteLogoControl );
-const WrappedHeaderImageControl = designTool( HeaderImageControl );
-const WrappedHomePageSettings = designTool( HomePageSettings );
 
 const DesignMenu = React.createClass( {
 
@@ -114,24 +108,6 @@ const DesignMenu = React.createClass( {
 				return (
 					<DesignMenuPanel label={ this.translate( 'Title and Tagline' ) }>
 						<WrappedSiteTitleControl previewDataKey="siteTitle" />
-					</DesignMenuPanel>
-				);
-			case 'siteLogo':
-				return (
-					<DesignMenuPanel label={ this.translate( 'Logo' ) }>
-						<WrappedSiteLogoControl previewDataKey="siteLogo" />
-					</DesignMenuPanel>
-				);
-			case 'headerImage':
-				return (
-					<DesignMenuPanel label={ this.translate( 'Header Image' ) }>
-						<WrappedHeaderImageControl previewDataKey="headerImage" />
-					</DesignMenuPanel>
-				);
-			case 'homePage':
-				return (
-					<DesignMenuPanel label={ this.translate( 'Homepage Settings' ) }>
-						<WrappedHomePageSettings previewDataKey="homePage" />
 					</DesignMenuPanel>
 				);
 			default:
