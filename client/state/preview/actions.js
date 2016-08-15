@@ -77,24 +77,3 @@ function saveCustomizationsFor( id, customizations, siteId, dispatch ) {
 	}
 	debug( 'no save function for', id );
 }
-
-export function createHomePage() {
-	return function( dispatch, getState ) {
-		const { preview, ui } = getState();
-		const siteId = ui.selectedSiteId;
-		const customizations = preview[ siteId ].customizations;
-		debug( 'creating home page for site', siteId );
-		wpcom.site( siteId ).addPost( { type: 'page', title: 'Home', content: '<h1>Welcome!</h1>' } )
-		.then( post => {
-			debug( 'home page successfully created!', post );
-			debug( 'setting home page preview setting to replace existing setting', customizations.homePage );
-			if ( ! customizations.homePage ) {
-				customizations.homePage = { isPageOnFront: true };
-			}
-			customizations.homePage.pageOnFrontId = post.ID;
-			dispatch( updateCustomizations( siteId, { homePage: customizations.homePage } ) );
-			debug( 'refreshing page list for new home page' );
-			dispatch( requestSitePosts( siteId, { type: 'page' } ) );
-		} );
-	};
-}
