@@ -355,6 +355,7 @@ class Popover extends Component {
 		}
 
 		const classes = classNames(
+			'popover',
 			className,
 			this.state.positionClass
 		);
