@@ -2,7 +2,6 @@
  * External dependencies
  */
 import React from 'react';
-import sitesFactory from 'lib/sites-list';
 import { connect } from 'react-redux';
 import {
 	get,
@@ -39,8 +38,6 @@ import { getSelectedSite } from 'state/ui/selectors';
 import { toApi as seoTitleToApi } from 'components/seo/meta-title-editor/mappings';
 import { recordTracksEvent } from 'state/analytics/actions';
 import { requestSite } from 'state/sites/actions';
-
-const sitesList = sitesFactory();
 
 const serviceIds = {
 	google: 'google-site-verification',
@@ -264,7 +261,6 @@ export const SeoForm = React.createClass( {
 				} );
 
 				site.fetchSettings();
-				sitesList.fetch();
 				const { selectedSite } = this.props;
 				selectedSite && this.props.refreshSiteData( selectedSite.ID );
 			}
