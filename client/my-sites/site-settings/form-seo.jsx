@@ -2,6 +2,7 @@
  * External dependencies
  */
 import React from 'react';
+import sitesFactory from 'lib/sites-list';
 import { connect } from 'react-redux';
 import {
 	get,
@@ -37,6 +38,9 @@ import { getSeoTitleFormatsForSite } from 'state/sites/selectors';
 import { getSelectedSite } from 'state/ui/selectors';
 import { toApi as seoTitleToApi } from 'components/seo/meta-title-editor/mappings';
 import { recordTracksEvent } from 'state/analytics/actions';
+import { requestSite } from 'state/sites/actions';
+
+const sitesList = sitesFactory();
 
 const serviceIds = {
 	google: 'google-site-verification',
@@ -56,7 +60,6 @@ function getGeneralTabUrl( slug ) {
 function stateForSite( site ) {
 	return {
 		seoMetaDescription: get( site, 'options.seo_meta_description', '' ),
-		seoTitleFormats: getSeoTitleFormatsForSite( site ),
 		googleCode: get( site, 'options.verification_services_codes.google', '' ),
 		bingCode: get( site, 'options.verification_services_codes.bing', '' ),
 		pinterestCode: get( site, 'options.verification_services_codes.pinterest', '' ),
@@ -94,18 +97,40 @@ export const SeoForm = React.createClass( {
 	mixins: [ protectForm.mixin ],
 
 	getInitialState() {
-		return stateForSite( this.props.site );
+		console.log( this.props.storedTitleFormats.frontPage );
+
+		return {
+			...stateForSite( this.props.site ),
+			seoTitleFormats: this.props.storedTitleFormats,
+			dirtyFields: []
+		};
+	},
+
+	componentDidMount() {
+		const {
+			refreshSiteData,
+			selectedSite,
+		} = this.props;
+
+		selectedSite && refreshSiteData( selectedSite.ID );
 	},
 
 	componentWillReceiveProps( nextProps ) {
-		let nextState = stateForSite( nextProps.site );
+		let nextState =  {
+			...stateForSite( nextProps.site ),
+			seoTitleFormats: nextProps.storedTitleFormats
+		};
 
-		// Don't update state for fields the user has edited
-		if ( this.state.dirtyFields ) {
-			nextState = omit( nextState, this.state.dirtyFields );
+		if ( ! isEqual( this.props.storedTitleFormats, nextProps.storedTitleFormats ) ) {
+			console.log( this.state.dirtyFields );
+			console.log( nextProps.storedTitleFormats.frontPage );
 		}
 
-		this.setState( nextState );
+		// Don't update state for fields the user has edited
+		nextState = omit( nextState, this.state.dirtyFields );
+		console.log( nextState );
+
+		this.setState( nextState, () => this.forceUpdate() );
 	},
 
 	handleMetaChange( event ) {
@@ -171,7 +196,13 @@ export const SeoForm = React.createClass( {
 		const hasChanges = ( format, type ) =>
 			! isEqual( format, storedTitleFormats[ type ] );
 
+		const { dirtyFields = [] } = this.state;
+		if ( ! includes( dirtyFields, 'seoTitleFormats' ) ) {
+			dirtyFields.push( 'seoTitleFormats' );
+		}
+
 		this.setState( {
+			dirtyFields,
 			seoTitleFormats: pickBy( seoTitleFormats, hasChanges )
 		} );
 	},
@@ -227,9 +258,15 @@ export const SeoForm = React.createClass( {
 			} else {
 				notices.success( this.translate( 'Settings saved!' ) );
 				this.markSaved();
-				this.setState( { isSubmittingForm: false } );
+				this.setState( {
+					dirtyFields: [],
+					isSubmittingForm: false
+				} );
 
 				site.fetchSettings();
+				sitesList.fetch();
+				const { selectedSite } = this.props;
+				selectedSite && this.props.refreshSiteData( selectedSite.ID );
 			}
 		} );
 
@@ -321,7 +358,10 @@ export const SeoForm = React.createClass( {
 								{ config.isEnabled( 'manage/advanced-seo/custom-title' ) &&
 									<div>
 										<FormLabel htmlFor="seo_title">{ this.translate( 'Meta Title Format' ) }</FormLabel>
-										<MetaTitleEditor onChange={ this.updateTitleFormats } />
+										<MetaTitleEditor
+											onChange={ this.updateTitleFormats }
+											titleFormats={ this.state.seoTitleFormats }
+										/>
 										<FormSettingExplanation>
 											{ this.translate( 'Customize how the title for your content will appear in search engines and social media.' ) }
 										</FormSettingExplanation>
@@ -459,10 +499,12 @@ export const SeoForm = React.createClass( {
 } );
 
 const mapStateToProps = state => ( {
+	selectedSite: getSelectedSite( state ),
 	storedTitleFormats: getSeoTitleFormatsForSite( getSelectedSite( state ) )
 } );
 
 const mapDispatchToProps = {
+	refreshSiteData: siteId => requestSite( siteId ),
 	trackSubmission: () => recordTracksEvent( 'calypso_seo_settings_form_submit', {} )
 };
 

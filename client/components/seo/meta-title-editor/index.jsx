@@ -159,9 +159,11 @@ MetaTitleEditor.defaultProps = {
 	translate: identity
 };
 
-const mapStateToProps = state => ( {
+const mapStateToProps = ( state, { titleFormats } ) => ( {
 	siteId: getSelectedSiteId( state ),
-	titleFormats: getSeoTitleFormats( state, getSelectedSiteId( state ) )
+	titleFormats: titleFormats
+		? titleFormats
+		: getSeoTitleFormats( state, getSelectedSiteId( state ) )
 } );
 
 export default connect( mapStateToProps )( localize( MetaTitleEditor ) );
