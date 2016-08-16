@@ -104,12 +104,7 @@ export const SeoForm = React.createClass( {
 	},
 
 	componentDidMount() {
-		const {
-			refreshSiteData,
-			selectedSite,
-		} = this.props;
-
-		selectedSite && refreshSiteData( selectedSite.ID );
+		this.refreshCustomTitles();
 	},
 
 	componentWillReceiveProps( nextProps ) {
@@ -261,12 +256,22 @@ export const SeoForm = React.createClass( {
 				} );
 
 				site.fetchSettings();
-				const { selectedSite } = this.props;
-				selectedSite && this.props.refreshSiteData( selectedSite.ID );
+				this.refreshCustomTitles();
 			}
 		} );
 
 		trackSubmission();
+	},
+
+	refreshCustomTitles() {
+		const {
+			refreshSiteData,
+			selectedSite
+		} = this.props;
+
+		if ( selectedSite && selectedSite.ID ) {
+			refreshSiteData( selectedSite.ID );
+		}
 	},
 
 	render() {
